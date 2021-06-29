@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1F2192B-3275-4CE5-A419-96271BDB62F1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>applications</RootNamespace>
+    <AssemblyName>applications</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 8.0.19\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cars.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cars.Designer.cs">
+      <DependentUpon>Cars.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chose.Designer.cs">
+      <DependentUpon>Chose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Contractor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contractor.Designer.cs">
+      <DependentUpon>Contractor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CounterParty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CounterParty.Designer.cs">
+      <DependentUpon>CounterParty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRForBuyer1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRForBuyer1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CRViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRViewer.Designer.cs">
+      <DependentUpon>CRViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DB.cs" />
+    <Compile Include="DGVPrinter.cs" />
+    <Compile Include="Drivers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drivers.Designer.cs">
+      <DependentUpon>Drivers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ForPrice.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Nomenclature.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomenclature.Designer.cs">
+      <DependentUpon>Nomenclature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CargoRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CargoRequest.Designer.cs">
+      <DependentUpon>CargoRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CounterObject.cs" />
+    <Compile Include="ObjectCounterparty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjectCounterparty.Designer.cs">
+      <DependentUpon>ObjectCounterparty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Price.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Price.Designer.cs">
+      <DependentUpon>Price.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report.Designer.cs">
+      <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary.cs" />
+    <Compile Include="StatementBuyer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatementBuyer.Designer.cs">
+      <DependentUpon>StatementBuyer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatementSalary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatementSalary.Designer.cs">
+      <DependentUpon>StatementSalary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tester.Designer.cs">
+      <DependentUpon>Tester.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Work.cs" />
+    <Compile Include="WorkSpace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkSpace.Designer.cs">
+      <DependentUpon>WorkSpace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WriteRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WriteRequest.Designer.cs">
+      <DependentUpon>WriteRequest.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Cars.resx">
+      <DependentUpon>Cars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chose.resx">
+      <DependentUpon>Chose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contractor.resx">
+      <DependentUpon>Contractor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CounterParty.resx">
+      <DependentUpon>CounterParty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRForBuyer1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRForBuyer1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRViewer.resx">
+      <DependentUpon>CRViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drivers.resx">
+      <DependentUpon>Drivers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nomenclature.resx">
+      <DependentUpon>Nomenclature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CargoRequest.resx">
+      <DependentUpon>CargoRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectCounterparty.resx">
+      <DependentUpon>ObjectCounterparty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Price.resx">
+      <DependentUpon>Price.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatementBuyer.resx">
+      <DependentUpon>StatementBuyer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatementSalary.resx">
+      <DependentUpon>StatementSalary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tester.resx">
+      <DependentUpon>Tester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkSpace.resx">
+      <DependentUpon>WorkSpace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WriteRequest.resx">
+      <DependentUpon>WriteRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\back.png" />
+    <Content Include="Images\clearTrash.png" />
+    <Content Include="Images\close.png" />
+    <Content Include="Images\delete.png" />
+    <Content Include="Images\edit.png" />
+    <Content Include="Images\leftclear.png" />
+    <Content Include="Images\plus.png" />
+    <Content Include="Images\lock.png" />
+    <Content Include="Images\plus2.png" />
+    <Content Include="Images\user.png" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\iconfinder_173_Arrow_Loop_Loop_Arrow_Back_4541847.png" />
+    <None Include="Resources\iconfinder_circle_close_cancel_exit_quit_delete_48310371.png" />
+    <None Include="Resources\iconfinder_circle_close_cancel_exit_quit_delete_4831037.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
