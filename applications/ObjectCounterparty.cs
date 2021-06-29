@@ -48,7 +48,7 @@ namespace applications
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
             MySqlDataReader myReader;
-            string[] names = new string[100];
+            string[] names = new string[1000];
             try
             {
                 db.openConnection();
@@ -463,6 +463,27 @@ namespace applications
             db.openConnection();
 
             command.ExecuteNonQuery();
+
+            db.closeConnection();
+
+            MySqlCommand command2 = new MySqlCommand("UPDATE `request` SET `object` = '" + objectName + "' WHERE `object` = '" + val + "'", db.getConnection());
+            db.openConnection();
+
+            command2.ExecuteNonQuery();
+
+            db.closeConnection();
+
+            command2 = new MySqlCommand("UPDATE `request` SET `objectArrive` = '" + objectName + "' WHERE `objectArrive` = '" + val + "'", db.getConnection());
+            db.openConnection();
+
+            command2.ExecuteNonQuery();
+
+            db.closeConnection();
+
+            command2 = new MySqlCommand("UPDATE `request` SET `objectSend` = '" + objectName + "' WHERE `objectSend` = '" + val + "'", db.getConnection());
+            db.openConnection();
+
+            command2.ExecuteNonQuery();
 
             db.closeConnection();
 

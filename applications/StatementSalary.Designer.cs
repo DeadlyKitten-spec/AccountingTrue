@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.button4 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -48,12 +49,11 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -84,6 +84,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1924, 1061);
             this.panel1.TabIndex = 0;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox3.Image = global::applications.Properties.Resources.iconfinder_173_Arrow_Loop_Loop_Arrow_Back_4541847;
+            this.pictureBox3.Location = new System.Drawing.Point(1850, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(62, 58);
+            this.pictureBox3.TabIndex = 51;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // button4
             // 
@@ -151,9 +162,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(42, 90);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(155, 25);
+            this.label3.Size = new System.Drawing.Size(131, 25);
             this.label3.TabIndex = 45;
-            this.label3.Text = "Субподрядчик";
+            this.label3.Text = "Перевозчик";
             // 
             // button1
             // 
@@ -283,17 +294,6 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Дата";
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox3.Image = global::applications.Properties.Resources.iconfinder_173_Arrow_Loop_Loop_Arrow_Back_4541847;
-            this.pictureBox3.Location = new System.Drawing.Point(1850, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(62, 58);
-            this.pictureBox3.TabIndex = 51;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
             // StatementSalary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -304,10 +304,10 @@
             this.Text = "Ведомость по ЗП";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }

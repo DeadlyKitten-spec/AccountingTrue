@@ -29,10 +29,11 @@ namespace applications
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             DB db = new DB();
-            MySqlCommand command = new MySqlCommand("INSERT INTO `cars` (`contractor`, `name`) VALUES (@contractor, @cars)", db.getConnection());
+            MySqlCommand command = new MySqlCommand("INSERT INTO `cars` (`contractor`, `name`, `option`) VALUES (@contractor, @cars, @option)", db.getConnection());
 
             command.Parameters.Add("@contractor", MySqlDbType.VarChar).Value = textBox2.Text;
             command.Parameters.Add("@cars", MySqlDbType.VarChar).Value = " ";
+            command.Parameters.Add("@option", MySqlDbType.VarChar).Value = " ";
             db.openConnection();
 
             command.ExecuteNonQuery();
@@ -172,6 +173,21 @@ namespace applications
 
             db.closeConnection();
 
+            command = new MySqlCommand("UPDATE `request` SET `contractor` = '" + textBox2.Text + "' WHERE `contractor` = '" + val + "'", db.getConnection());
+
+            db.openConnection();
+
+            command.ExecuteNonQuery();
+
+            db.closeConnection();
+
+            command = new MySqlCommand("UPDATE `request` SET `driveCont` = '" + textBox2.Text + "' WHERE `driveCont` = '" + val + "'", db.getConnection());
+
+            db.openConnection();
+
+            command.ExecuteNonQuery();
+
+            db.closeConnection();
 
             textBox2.Text = "";
             dataGridView1.Rows.Clear();

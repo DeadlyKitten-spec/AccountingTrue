@@ -307,42 +307,32 @@ namespace applications
                     checkBox2.CheckState = CheckState.Unchecked;
                     checkBox3.CheckState = CheckState.Checked;
                 }
-                else { 
                 if (dataGridView1[2, idx].Value.Equals("Грузополучатель/грузоотправитель"))
                 {
                     checkBox1.CheckState = CheckState.Checked;
                     checkBox2.CheckState = CheckState.Checked;
                     checkBox3.CheckState = CheckState.Unchecked;
                 }
-                else
+                if (dataGridView1[2, idx].Value.Equals("Грузополучатель"))
                 {
-                    if (dataGridView1[2, idx].Value.Equals("Грузополучатель"))
-                    {
-                        checkBox1.CheckState = CheckState.Checked;
-                        checkBox2.CheckState = CheckState.Unchecked;
-                        checkBox3.CheckState = CheckState.Unchecked;
-                    }
-                    else
-                    {
-                        if (dataGridView1[2, idx].Value.Equals("Грузоотпрвитель"))
-                        {
-                            checkBox1.CheckState = CheckState.Unchecked;
-                            checkBox2.CheckState = CheckState.Checked;
-                            checkBox3.CheckState = CheckState.Unchecked;
-                        }
-                        else
-                        {
-                            if (dataGridView1[2, idx].Value.Equals("Б/С"))
-                            {
-                                checkBox2.CheckState = CheckState.Unchecked;
-                                checkBox2.CheckState = CheckState.Unchecked;
-                                checkBox3.CheckState = CheckState.Unchecked;
-                            }
-                        }
-                    }
+                    checkBox1.CheckState = CheckState.Checked;
+                    checkBox2.CheckState = CheckState.Unchecked;
+                    checkBox3.CheckState = CheckState.Unchecked;
                 }
+                if (dataGridView1[2, idx].Value.Equals("Б/С"))
+                {
+                    checkBox1.CheckState = CheckState.Unchecked;
+                    checkBox2.CheckState = CheckState.Unchecked;
+                    checkBox3.CheckState = CheckState.Unchecked;
+                }
+                if (dataGridView1[2, idx].Value.Equals("Грузоотправитель"))
+                {
+                    checkBox1.CheckState = CheckState.Unchecked;
+                    checkBox2.CheckState = CheckState.Checked;
+                    checkBox3.CheckState = CheckState.Unchecked;
                 }
             }
+            textBox2.Text = dataGridView1[1, idx].Value.ToString();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -377,15 +367,19 @@ namespace applications
                             {
                                 if (checkBox2.CheckState == CheckState.Checked)
                                 {
-                                    Line = "UPDATE `counterparty` SET `name` = '" + textBox2.Text + "', `status` = 'Грузоотправитель' WHERE `name` = '" + val + "'"; ;
+                                    Line = "UPDATE `counterparty` SET `name` = '" + textBox2.Text + "', `status` = 'Грузоотправитель' WHERE `name` = '" + val + "'";
                                 }
                             }
                         }
                     }
+                    if(checkBox1.CheckState == CheckState.Unchecked && checkBox2.CheckState == CheckState.Unchecked && checkBox3.CheckState == CheckState.Unchecked)
+                    {
+                        Line = "UPDATE `counterparty` SET `name` = '" + textBox2.Text + "', `status` = 'Б/С' WHERE `name` = '" + val + "'";
+                    }
                 }
                 else
                 {
-                    if (checkBox3.CheckState == CheckState.Checked)
+                    /*if (checkBox3.CheckState == CheckState.Checked)
                     {
                         Line = "UPDATE `counterparty` SET `status` = 'Диспетчер' WHERE `name` = '" + val + "'";
                     }
@@ -409,7 +403,8 @@ namespace applications
                                 }
                             }
                         }
-                    }
+                    }*/
+                    MessageBox.Show("Вы не ввели название контрагенту");
                 }
                 MySqlCommand command = new MySqlCommand(Line, db.getConnection());
 
@@ -418,6 +413,37 @@ namespace applications
                 command.ExecuteNonQuery();
 
                 db.closeConnection();
+
+                if (!textBox2.Text.Equals(""))
+                {
+                    MySqlCommand command2 = new MySqlCommand("UPDATE `request` SET `buyer` = '" + textBox2.Text + "' WHERE `buyer` = '" + val + "'", db.getConnection());
+                    db.openConnection();
+
+                    command2.ExecuteNonQuery();
+
+                    db.closeConnection();
+
+                    command2 = new MySqlCommand("UPDATE `request` SET `sender` = '" + textBox2.Text + "' WHERE `sender` = '" + val + "'", db.getConnection());
+                    db.openConnection();
+
+                    command2.ExecuteNonQuery();
+
+                    db.closeConnection();
+
+                    command2 = new MySqlCommand("UPDATE `request` SET `recipient` = '" + textBox2.Text + "' WHERE `recipient` = '" + val + "'", db.getConnection());
+                    db.openConnection();
+
+                    command2.ExecuteNonQuery();
+
+                    db.closeConnection();
+                    
+                    command2 = new MySqlCommand("UPDATE `request` SET `fromCounterparty` = '" + textBox2.Text + "' WHERE `fromCounterparty` = '" + val + "'", db.getConnection());
+                    db.openConnection();
+
+                    command2.ExecuteNonQuery();
+
+                    db.closeConnection();
+                }
 
                 textBox2.Text = "";
                 checkBox1.CheckState = CheckState.Unchecked;

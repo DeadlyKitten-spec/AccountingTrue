@@ -88,10 +88,18 @@ namespace applications
         private void plusButton_Click(object sender, EventArgs e)
         {
             DB db = new DB();
-            MySqlCommand command = new MySqlCommand("INSERT INTO `cars` (`contractor`, `name`) VALUES (@contractor, @cars)", db.getConnection());
+            MySqlCommand command = new MySqlCommand("INSERT INTO `cars` (`contractor`, `name`, `option`) VALUES (@contractor, @cars, @option)", db.getConnection());
 
             command.Parameters.Add("@contractor", MySqlDbType.VarChar).Value = comboBox1.Text;
             command.Parameters.Add("@cars", MySqlDbType.VarChar).Value = textBox1.Text;
+            if (textBox2.Text.Equals(""))
+            {
+                command.Parameters.Add("@option", MySqlDbType.VarChar).Value = "пусто";
+            }
+            else
+            {
+                command.Parameters.Add("@option", MySqlDbType.VarChar).Value = textBox2.Text;
+            }
             db.openConnection();
 
             command.ExecuteNonQuery();
@@ -100,6 +108,7 @@ namespace applications
             db.closeConnection();
 
             textBox1.Text = "";
+            textBox2.Text = "";
             dataGridView1.Rows.Clear();
             command = new MySqlCommand("SELECT * FROM `cars` WHERE `contractor` = '" + comboBox1.Text + "' ORDER BY `name` ASC", db.getConnection());
             MySqlDataReader myReader;
@@ -120,6 +129,7 @@ namespace applications
                     dataGridView1.Rows.Add();
                     dataGridView1[0, k].Value = k + 1;
                     dataGridView1[1, k].Value = objName;
+                    dataGridView1[2, k].Value = myReader.GetString("option");
                     k++;
                 }
             }
@@ -200,6 +210,7 @@ namespace applications
                         dataGridView1.Rows.Add();
                         dataGridView1[0, k].Value = k + 1;
                         dataGridView1[1, k].Value = objName;
+                        dataGridView1[2, k].Value = myReader.GetString("option");
                         k++;
                     }
                 }
@@ -214,7 +225,7 @@ namespace applications
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             DB db = new DB();
-            MySqlCommand command = new MySqlCommand("UPDATE `cars` SET `name` = '" + textBox1.Text + "' WHERE `name` = '" + val + "'", db.getConnection());
+            MySqlCommand command = new MySqlCommand("UPDATE `cars` SET `name` = '" + textBox1.Text + "', `option` = '" + textBox2.Text + "' WHERE `name` = '" + val + "'", db.getConnection());
 
             db.openConnection();
 
@@ -222,7 +233,15 @@ namespace applications
 
             db.closeConnection();
 
+            MySqlCommand command2 = new MySqlCommand("UPDATE `request` SET `cars` = '" + textBox1.Text + "' WHERE `cars` = '" + val + "'", db.getConnection());
+            db.openConnection();
+
+            command2.ExecuteNonQuery();
+
+            db.closeConnection();
+
             textBox1.Text = "";
+            textBox2.Text = "";
             dataGridView1.Rows.Clear();
             command = new MySqlCommand("SELECT * FROM `cars` WHERE `contractor` = '" + comboBox1.Text + "' ORDER BY `name` ASC", db.getConnection());
             MySqlDataReader myReader;
@@ -243,6 +262,7 @@ namespace applications
                     dataGridView1.Rows.Add();
                     dataGridView1[0, k].Value = k + 1;
                     dataGridView1[1, k].Value = objName;
+                    dataGridView1[2, k].Value = myReader.GetString("option");
                     k++;
                 }
             }
@@ -265,6 +285,7 @@ namespace applications
             db.closeConnection();
 
             textBox1.Text = "";
+            textBox2.Text = "";
             dataGridView1.Rows.Clear();
             command = new MySqlCommand("SELECT * FROM `cars` WHERE `contractor` = '" + comboBox1.Text + "' ORDER BY `name` ASC", db.getConnection());
             MySqlDataReader myReader;
@@ -285,6 +306,7 @@ namespace applications
                     dataGridView1.Rows.Add();
                     dataGridView1[0, k].Value = k + 1;
                     dataGridView1[1, k].Value = objName;
+                    dataGridView1[2, k].Value = myReader.GetString("option");
                     k++;
                 }
             }
@@ -299,6 +321,8 @@ namespace applications
         {
             int idx = dataGridView1.CurrentRow.Index;
             val = dataGridView1[1, idx].Value.ToString();
+            textBox1.Text = dataGridView1[1, idx].Value.ToString();
+            textBox2.Text = dataGridView1[2, idx].Value.ToString();
         }
     }
 }

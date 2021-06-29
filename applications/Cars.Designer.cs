@@ -34,13 +34,16 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.plusButton = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Option = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -54,6 +57,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(237)))), ((int)(((byte)(147)))));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.comboBox1);
@@ -93,7 +98,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(210, 30);
+            this.comboBox1.Location = new System.Drawing.Point(226, 30);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(208, 21);
             this.comboBox1.TabIndex = 45;
@@ -117,26 +122,14 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
-            this.name});
-            this.dataGridView1.Location = new System.Drawing.Point(46, 122);
+            this.name,
+            this.Option});
+            this.dataGridView1.Location = new System.Drawing.Point(46, 180);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(563, 521);
+            this.dataGridView1.Size = new System.Drawing.Size(563, 463);
             this.dataGridView1.TabIndex = 43;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            // 
-            // id
-            // 
-            this.id.HeaderText = "№";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Автомобиль";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            this.name.Width = 200;
             // 
             // plusButton
             // 
@@ -150,7 +143,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(210, 86);
+            this.textBox1.Location = new System.Drawing.Point(226, 79);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(208, 20);
             this.textBox1.TabIndex = 41;
@@ -160,7 +153,7 @@
             this.label3.AutoSize = true;
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(41, 81);
+            this.label3.Location = new System.Drawing.Point(41, 74);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(133, 25);
             this.label3.TabIndex = 40;
@@ -189,6 +182,43 @@
             this.panel2.TabIndex = 1;
             this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
             this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(226, 125);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(208, 20);
+            this.textBox2.TabIndex = 50;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(41, 120);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(175, 25);
+            this.label2.TabIndex = 49;
+            this.label2.Text = "Характеристика";
+            // 
+            // id
+            // 
+            this.id.HeaderText = "№";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Автомобиль";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            this.name.Width = 200;
+            // 
+            // Option
+            // 
+            this.Option.HeaderText = "Характеристика";
+            this.Option.Name = "Option";
+            this.Option.ReadOnly = true;
             // 
             // Cars
             // 
@@ -219,11 +249,14 @@
         private System.Windows.Forms.PictureBox plusButton;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Option;
     }
 }

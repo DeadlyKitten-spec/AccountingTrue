@@ -1,4 +1,5 @@
-﻿using DGVPrinterHelper;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using DGVPrinterHelper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -76,6 +77,7 @@ namespace applications
                     salary[i].countTrip = -1;
                     salary[i].sum = -1;
                 }
+                int sumTrip = 0;
                 bool fobj = false;
                 int itter = 0;
                 int idlast = 0;
@@ -126,7 +128,32 @@ namespace applications
                                 salary[itter].car = myReader.GetString("cars");
                                 salary[itter].objectt = myReader.GetString("object");
                                 //MessageBox.Show("asd");
-                                salary[itter].price = int.Parse(myReader.GetString("priceSalary"));
+                                /*string priceSal = myReader.GetString("priceSalary");
+                                MessageBox.Show(priceSal);
+                                bool isStop = false;
+                                for (int i = 0; i < priceSal.Length; i++)
+                                {
+                                    if (priceSal[i].Equals(','))
+                                    {
+                                        isStop = true;
+                                    }
+                                }
+                                if (isStop)
+                                {
+                                    string[] forsplit = priceSal.Split(',');
+                                    //string sad = forsplit[0] + '.' + forsplit[1];
+                                    //MessageBox.Show(sad);
+                                    salary[itter].price = double.Parse(sad);
+                                    MessageBox.Show(salary[itter].price.ToString());
+                                }
+                                else
+                                {
+                                    salary[itter].price = int.Parse(priceSal);
+                                }*/
+                                //MessageBox.Show("asd");
+                                //MessageBox.Show(salary[itter].ToString());
+                                //MessageBox.Show(myReader.GetString("priceSalary"));
+                                salary[itter].price = double.Parse(myReader.GetString("priceSalary"));
                                 salary[itter].countTrip = 1;
                                 fobj = false;
                                 itter = -1;
@@ -155,7 +182,7 @@ namespace applications
                     dgv.Rows.Clear();
                     //dgv.Rows.Add();
                     int itterr = 0;
-                    int summ = 0;
+                    double summ = 0;
                     for(int i = 0; i < 1000; i++)
                     {
                         if (salary[i].objectt.Equals("-1"))
@@ -170,15 +197,20 @@ namespace applications
                         dgv[3, i].Value = salary[i].price;
                         dgv[4, i].Value = salary[i].sum;
                         summ += salary[i].sum;
+                        sumTrip += salary[i].countTrip;
                     }
                     //MessageBox.Show(itterr.ToString());
-                    //dgv.Rows.Add();
+                    dgv.Rows.Add();
                     dgv[0, itterr].Value = "Всего";
-/*                    dgv[1, itterr].Value = "0";
-                    dgv[2, itterr].Value = "0";
-                    dgv[3, itterr].Value = "0";*/
+                    /*                    dgv[1, itterr].Value = "0";
+                                        dgv[2, itterr].Value = "0";
+                                        dgv[3, itterr].Value = "0";*/
+                    dgv[2, itterr].Value = sumTrip;
                     dgv[4, itterr].Value = summ;
+                    dgv[0, itterr + 1].Value = "ЗП водителю";
+                    dgv[4, itterr + 1].Value = summ * 0.15;
                     dgv.Rows[itterr].DefaultCellStyle.BackColor = Color.LightGray;
+                    dgv.Rows[itterr + 1].DefaultCellStyle.BackColor = Color.LightGray;
                     dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 }
                 
@@ -186,7 +218,160 @@ namespace applications
             else
             {
                 //Line = "SELECT * FROM `request` WHERE `docDate` BETWEEN '" + answer1 + "' AND '" + answer2 + "';";
-                MessageBox.Show("Выберите водителя");
+                //MessageBox.Show("Выберите водителя");
+                Line = "SELECT * FROM `request` WHERE `docDate` BETWEEN '" + answer1 + "' AND '" + answer2 + "' AND `driveCont` = '" + comboBox2.Text + "' AND `status` = 'Исполнена' ORDER BY `cars` ASC;";
+                DB db = new DB();
+                MySqlCommand command = new MySqlCommand(Line, db.getConnection());
+                bool g = true;
+                db.openConnection();
+                object obj = command.ExecuteScalar();
+                db.closeConnection();
+                Salary[] salary = new Salary[1000];
+                for (int i = 0; i < 1000; i++)
+                {
+                    salary[i] = new Salary();
+                    salary[i].car = "-1";
+                    salary[i].objectt = "-1";
+                    salary[i].price = -1;
+                    salary[i].countTrip = -1;
+                    salary[i].sum = -1;
+                }
+                int sumTrip = 0;
+                bool fobj = false;
+                int itter = 0;
+                int idlast = 0;
+                int idmorelast = 0;
+                if (obj != null)
+                {
+                    MySqlDataAdapter adapter = new MySqlDataAdapter();
+                    MySqlDataReader myReader;
+                    try
+                    {
+                        db.openConnection();
+                        myReader = command.ExecuteReader();
+                        while (myReader.Read())
+                        {
+                            idlast = int.Parse(myReader.GetString("id"));
+                            if (idlast == idmorelast)
+                            {
+                                idmorelast = idlast;
+                                continue;
+                            }
+                            if (myReader.GetString("priceSalary").Equals("пусто"))
+                            {
+                                continue;
+                            }
+                            string objectt = myReader.GetString("object");
+                            for (int i = 0; i < 1000; i++)
+                            {
+                                //MessageBox.Show("nen");
+                                if (objectt.Equals(salary[i].objectt))
+                                {
+                                    idmorelast = idlast;
+                                    salary[i].countTrip++;
+                                    break;
+                                }
+                                else
+                                {
+                                    if (salary[i].objectt.Equals("-1"))
+                                    {
+                                        idmorelast = idlast;
+                                        fobj = true;
+                                        itter = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (fobj == true)
+                            {
+                                salary[itter].car = myReader.GetString("cars");
+                                salary[itter].objectt = myReader.GetString("object");
+                                //MessageBox.Show("asd");
+                                /*string priceSal = myReader.GetString("priceSalary");
+                                MessageBox.Show(priceSal);
+                                bool isStop = false;
+                                for (int i = 0; i < priceSal.Length; i++)
+                                {
+                                    if (priceSal[i].Equals(','))
+                                    {
+                                        isStop = true;
+                                    }
+                                }
+                                if (isStop)
+                                {
+                                    string[] forsplit = priceSal.Split(',');
+                                    //string sad = forsplit[0] + '.' + forsplit[1];
+                                    //MessageBox.Show(sad);
+                                    salary[itter].price = double.Parse(sad);
+                                    MessageBox.Show(salary[itter].price.ToString());
+                                }
+                                else
+                                {
+                                    salary[itter].price = int.Parse(priceSal);
+                                }*/
+                                //MessageBox.Show("asd");
+                                //MessageBox.Show(salary[itter].ToString());
+                                //MessageBox.Show(myReader.GetString("priceSalary"));
+                                salary[itter].price = double.Parse(myReader.GetString("priceSalary"));
+                                salary[itter].countTrip = 1;
+                                fobj = false;
+                                itter = -1;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    db.closeConnection();
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        salary[i].sum = salary[i].countTrip * salary[i].price;
+                    }
+                    dgv.Columns.Clear();
+                    dgv.Rows.Clear();
+                    dgv.Columns.AddRange(
+                    new DataGridViewTextBoxColumn() { Name = "car", HeaderText = "Автомобиль" },
+                    //new DataGridViewTextBoxColumn() { Name = "buyer", HeaderText = "Покупатель/заказчик" },
+                    //new DataGridViewTextBoxColumn() { Name = "object", HeaderText = "Объект" },
+                    new DataGridViewTextBoxColumn() { Name = "object", HeaderText = "Название Объекта" },
+                    new DataGridViewTextBoxColumn() { Name = "countTrip", HeaderText = "Кол-во рейсов" },
+                    new DataGridViewTextBoxColumn() { Name = "price", HeaderText = "Расценок ЗП" },
+                    new DataGridViewTextBoxColumn() { Name = "sum", HeaderText = "Сумма" });
+                    dgv.Rows.Clear();
+                    //dgv.Rows.Add();
+                    int itterr = 0;
+                    double summ = 0;
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        if (salary[i].objectt.Equals("-1"))
+                        {
+                            itterr = i;
+                            break;
+                        }
+                        dgv.Rows.Add();
+                        dgv[0, i].Value = salary[i].car;
+                        dgv[1, i].Value = salary[i].objectt;
+                        dgv[2, i].Value = salary[i].countTrip;
+                        dgv[3, i].Value = salary[i].price;
+                        dgv[4, i].Value = salary[i].sum;
+                        summ += salary[i].sum;
+                        sumTrip += salary[i].countTrip;
+                    }
+                    //MessageBox.Show(itterr.ToString());
+                    dgv.Rows.Add();
+                    dgv[0, itterr].Value = "Всего";
+                    /*                    dgv[1, itterr].Value = "0";
+                                        dgv[2, itterr].Value = "0";
+                                        dgv[3, itterr].Value = "0";*/
+                    dgv[2, itterr].Value = sumTrip;
+                    dgv[4, itterr].Value = summ;
+                    dgv[0, itterr + 1].Value = "ЗП водителю";
+                    dgv[4, itterr + 1].Value = summ * 0.15;
+                    dgv.Rows[itterr].DefaultCellStyle.BackColor = Color.LightGray;
+                    dgv.Rows[itterr + 1].DefaultCellStyle.BackColor = Color.LightGray;
+                    dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                }
             }
             
         }
@@ -397,7 +582,7 @@ namespace applications
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string datefirst = dateTimePicker1.Value.ToString();
+            /*string datefirst = dateTimePicker1.Value.ToString();
             string[] datesplit = datefirst.Split(' ');
             string printLineDateFirst = "Дата с:    " + datesplit[0];
             string datefirst2 = dateTimePicker3.Value.ToString();
@@ -415,7 +600,33 @@ namespace applications
             printer.PorportionalColumns = true;
             printer.HeaderCellAlignment = StringAlignment.Near;
             //printer.FooterSpacing = 15;
-            printer.PrintDataGridView(dgv);
+            printer.PrintDataGridView(dgv);*/
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("car", typeof(string));
+            dt.Columns.Add("object", typeof(string));
+            dt.Columns.Add("countTrip", typeof(string));
+            dt.Columns.Add("price", typeof(string));
+            dt.Columns.Add("sum", typeof(string));
+            foreach (DataGridViewRow dgv in dgv.Rows)
+            {
+                dt.Rows.Add(dgv.Cells[0].Value, dgv.Cells[1].Value, dgv.Cells[2].Value, dgv.Cells[3].Value, dgv.Cells[4].Value);
+            }
+            ds.Tables.Add(dt);
+            ds.WriteXmlSchema("SampleZP.xml");
+            CRForZP cr = new CRForZP();
+            TextObject text = (TextObject)cr.ReportDefinition.Sections["Section1"].ReportObjects["Text11"];
+            text.Text = dateTimePicker1.Value.ToString("dd-MM-yyyy");
+            TextObject text1 = (TextObject)cr.ReportDefinition.Sections["Section1"].ReportObjects["Text12"];
+            text1.Text = dateTimePicker3.Value.ToString("dd-MM-yyyy");
+            TextObject text5 = (TextObject)cr.ReportDefinition.Sections["Section1"].ReportObjects["Text19"];
+            text5.Text = comboBox2.Text;
+            TextObject text2 = (TextObject)cr.ReportDefinition.Sections["Section1"].ReportObjects["Text13"];
+            text2.Text = comboBox1.Text;
+            cr.SetDataSource(ds);
+            CRViewerZP crv = new CRViewerZP();
+            crv.crystalReportViewer2.ReportSource = cr;
+            crv.Show();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)

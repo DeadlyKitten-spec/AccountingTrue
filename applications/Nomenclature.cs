@@ -16,7 +16,8 @@ namespace applications
         public Nomenclature()
         {
             InitializeComponent();
-            FillDGV();
+            //FillDGV();
+            comboBox1.Text = "Груз";
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -63,6 +64,7 @@ namespace applications
 
         void FillDGV()
         {
+            dataGridView1.Rows.Clear();
             string Query = "SELECT * FROM `namecargo`";
             DB db = new DB();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
@@ -110,62 +112,137 @@ namespace applications
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
+
         private void pictureBox1_Click_1(object sender, EventArgs e)
-        {
-            DB db = new DB();
-            MySqlCommand command = new MySqlCommand("INSERT INTO `namecargo` (`name`) VALUES (@cargo)", db.getConnection());
-
-            command.Parameters.Add("@cargo", MySqlDbType.VarChar).Value = textBox2.Text;
-            db.openConnection();
-
-            command.ExecuteNonQuery();
-
-            db.closeConnection();
-
-            textBox2.Text = "";
-            dataGridView1.Rows.Clear();
-            command = new MySqlCommand("SELECT * FROM `namecargo`", db.getConnection());
-            MySqlDataReader myReader;
-            string[] names = new string[100];
-            int k = 0;
-            try
+        {   
+            if (comboBox1.SelectedIndex == 0)
             {
+                DB db = new DB();
+                MySqlCommand command = new MySqlCommand("INSERT INTO `product` (`group`, `name`) VALUES (@group, @cargo)", db.getConnection());
+                
+                command.Parameters.Add("@group", MySqlDbType.VarChar).Value = comboBox2.Text;
+                command.Parameters.Add("@cargo", MySqlDbType.VarChar).Value = textBox2.Text;
                 db.openConnection();
-                myReader = command.ExecuteReader();
-                int j = 0;
-                while (myReader.Read())
+
+                command.ExecuteNonQuery();
+
+                db.closeConnection();
+
+                textBox2.Text = "";
+                dataGridView1.Rows.Clear();
+                string Query = "SELECT * FROM `product` WHERE `group` = '" + comboBox2.Text + "';";
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
                 {
-                    string objName = myReader.GetString("name");
-                    bool f = true;
-                    for (int i = 0; i < names.Length; i++)
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
                     {
-                        if (names[i] != null)
+                        string objName = myReader.GetString("name");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
                         {
-                            if (names[i].Equals(objName))
+                            if (names[i] != null)
                             {
-                                f = false;
-                                break;
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if (f == true)
-                    {
-
-                        names[j] = objName;
-                        j++;
-                        dataGridView1.Rows.Add();
-                        dataGridView1[0, k].Value = k + 1;
-                        dataGridView1[1, k].Value = objName;
-                        k++;
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            if (!names[j].Equals("пусто"))
+                            {
+                                //comboBox2.Items.Add(names[j]);
+                                dataGridView1.Rows.Add();
+                                dataGridView1[0, k].Value = k + 1;
+                                dataGridView1[1, k].Value = objName;
+                                k++;
+                            }
+                            j++;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                DB db = new DB();
+                MySqlCommand command = new MySqlCommand("INSERT INTO `namecargo` (`group`, `name`) VALUES (@group, @cargo)", db.getConnection());
+
+                command.Parameters.Add("@group", MySqlDbType.VarChar).Value = comboBox2.Text;
+                command.Parameters.Add("@cargo", MySqlDbType.VarChar).Value = textBox2.Text;
+                db.openConnection();
+
+                command.ExecuteNonQuery();
+
+                db.closeConnection();
+
+                textBox2.Text = "";
+                dataGridView1.Rows.Clear();
+                string Query = "SELECT * FROM `namecargo` WHERE `group` = '" + comboBox2.Text + "';";
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
+                {
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
+                    {
+                        string objName = myReader.GetString("name");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
+                        {
+                            if (names[i] != null)
+                            {
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            if (!names[j].Equals("пусто"))
+                            {
+                                //comboBox2.Items.Add(names[j]);
+                                dataGridView1.Rows.Add();
+                                dataGridView1[0, k].Value = k + 1;
+                                dataGridView1[1, k].Value = objName;
+                                k++;
+                            }
+                            j++;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
-            db.closeConnection();
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -175,59 +252,144 @@ namespace applications
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            DB db = new DB();
-            MySqlCommand command = new MySqlCommand("UPDATE `namecargo` SET `name` = '" + textBox2.Text + "' WHERE `name` = '" + val + "'", db.getConnection());
-
-            db.openConnection();
-
-            command.ExecuteNonQuery();
-
-            db.closeConnection();
-
-            textBox2.Text = "";
-            dataGridView1.Rows.Clear();
-            command = new MySqlCommand("SELECT * FROM `namecargo`", db.getConnection());
-            MySqlDataReader myReader;
-            string[] names = new string[100];
-            int k = 0;
-            try
+            if (comboBox1.SelectedIndex == 0)
             {
+                DB db = new DB();
+                MySqlCommand command = new MySqlCommand("UPDATE `product` SET `name` = '" + textBox2.Text + "' WHERE `name` = '" + val + "'", db.getConnection());
+
                 db.openConnection();
-                myReader = command.ExecuteReader();
-                int j = 0;
-                while (myReader.Read())
+
+                command.ExecuteNonQuery();
+
+                db.closeConnection();
+
+                MySqlCommand command2 = new MySqlCommand("UPDATE `request` SET `nameCargo` = '" + textBox2.Text + "' WHERE `nameCargo` = '" + val + "'", db.getConnection());
+                db.openConnection();
+
+                command2.ExecuteNonQuery();
+
+                db.closeConnection();
+
+                textBox2.Text = "";
+                dataGridView1.Rows.Clear();
+                string Query = "SELECT * FROM `product` WHERE `group` = '" + comboBox2.Text + "';";
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
                 {
-                    string objName = myReader.GetString("name");
-                    bool f = true;
-                    for (int i = 0; i < names.Length; i++)
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
                     {
-                        if (names[i] != null)
+                        string objName = myReader.GetString("name");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
                         {
-                            if (names[i].Equals(objName))
+                            if (names[i] != null)
                             {
-                                f = false;
-                                break;
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if (f == true)
-                    {
-
-                        names[j] = objName;
-                        j++;
-                        dataGridView1.Rows.Add();
-                        dataGridView1[0, k].Value = k + 1;
-                        dataGridView1[1, k].Value = objName;
-                        k++;
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            if (!names[j].Equals("пусто"))
+                            {
+                                //comboBox2.Items.Add(names[j]);
+                                dataGridView1.Rows.Add();
+                                dataGridView1[0, k].Value = k + 1;
+                                dataGridView1[1, k].Value = objName;
+                                k++;
+                            }
+                            j++;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                DB db = new DB();
+                MySqlCommand command = new MySqlCommand("UPDATE `namecargo` SET `name` = '" + textBox2.Text + "' WHERE `name` = '" + val + "'", db.getConnection());
+
+                db.openConnection();
+
+                command.ExecuteNonQuery();
+
+                db.closeConnection();
+
+                MySqlCommand command2 = new MySqlCommand("UPDATE `request` SET `nameCargo` = '" + textBox2.Text + "' WHERE `nameCargo` = '" + val + "'", db.getConnection());
+                db.openConnection();
+
+                command2.ExecuteNonQuery();
+
+                db.closeConnection();
+
+                textBox2.Text = "";
+                dataGridView1.Rows.Clear();
+                string Query = "SELECT * FROM `namecargo` WHERE `group` = '" + comboBox2.Text + "';";
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
+                {
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
+                    {
+                        string objName = myReader.GetString("name");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
+                        {
+                            if (names[i] != null)
+                            {
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            if (!names[j].Equals("пусто"))
+                            {
+                                //comboBox2.Items.Add(names[j]);
+                                dataGridView1.Rows.Add();
+                                dataGridView1[0, k].Value = k + 1;
+                                dataGridView1[1, k].Value = objName;
+                                k++;
+                            }
+                            j++;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
-            db.closeConnection();
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -238,59 +400,344 @@ namespace applications
 
         private void pictureBox4_Click(object sender, EventArgs e)
         {
-            DB db = new DB();
-            MySqlCommand command = new MySqlCommand("DELETE FROM `namecargo` WHERE `name` = '" + val + "'", db.getConnection());
-
-            db.openConnection();
-
-            command.ExecuteNonQuery();
-
-            db.closeConnection();
-
-            textBox2.Text = "";
-            dataGridView1.Rows.Clear();
-            command = new MySqlCommand("SELECT * FROM `namecargo`", db.getConnection());
-            MySqlDataReader myReader;
-            string[] names = new string[100];
-            int k = 0;
-            try
+            if (comboBox1.SelectedIndex == 0)
             {
+                DB db = new DB();
+                MySqlCommand command = new MySqlCommand("DELETE FROM `product` WHERE `name` = '" + val + "'", db.getConnection());
+
                 db.openConnection();
-                myReader = command.ExecuteReader();
-                int j = 0;
-                while (myReader.Read())
+
+                command.ExecuteNonQuery();
+
+                db.closeConnection();
+
+                textBox2.Text = "";
+                dataGridView1.Rows.Clear();
+                string Query = "SELECT * FROM `product` WHERE `group` = '" + comboBox2.Text + "';";
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
                 {
-                    string objName = myReader.GetString("name");
-                    bool f = true;
-                    for (int i = 0; i < names.Length; i++)
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
                     {
-                        if (names[i] != null)
+                        string objName = myReader.GetString("name");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
                         {
-                            if (names[i].Equals(objName))
+                            if (names[i] != null)
                             {
-                                f = false;
-                                break;
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if (f == true)
-                    {
-
-                        names[j] = objName;
-                        j++;
-                        dataGridView1.Rows.Add();
-                        dataGridView1[0, k].Value = k + 1;
-                        dataGridView1[1, k].Value = objName;
-                        k++;
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            if (!names[j].Equals("пусто"))
+                            {
+                                //comboBox2.Items.Add(names[j]);
+                                dataGridView1.Rows.Add();
+                                dataGridView1[0, k].Value = k + 1;
+                                dataGridView1[1, k].Value = objName;
+                                k++;
+                            }
+                            j++;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                DB db = new DB();
+                MySqlCommand command = new MySqlCommand("DELETE FROM `namecargo` WHERE `name` = '" + val + "'", db.getConnection());
+
+                db.openConnection();
+
+                command.ExecuteNonQuery();
+
+                db.closeConnection();
+
+                textBox2.Text = "";
+                dataGridView1.Rows.Clear();
+                string Query = "SELECT * FROM `namecargo` WHERE `group` = '" + comboBox2.Text + "';";
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
+                {
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
+                    {
+                        string objName = myReader.GetString("name");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
+                        {
+                            if (names[i] != null)
+                            {
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            if (!names[j].Equals("пусто"))
+                            {
+                                //comboBox2.Items.Add(names[j]);
+                                dataGridView1.Rows.Add();
+                                dataGridView1[0, k].Value = k + 1;
+                                dataGridView1[1, k].Value = objName;
+                                k++;
+                            }
+                            j++;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
-            db.closeConnection();
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //dataGridView1.Rows.Clear();
+            comboBox2.Items.Clear();
+            if (comboBox1.SelectedIndex == 0)
+            {
+                string Query = "SELECT * FROM `product`";
+                DB db = new DB();
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
+                {
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
+                    {
+                        string objName = myReader.GetString("group");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
+                        {
+                            if (names[i] != null)
+                            {
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            comboBox2.Items.Add(names[j]);
+                            j++;
+                            /*dataGridView1.Rows.Add();
+                            dataGridView1[0, k].Value = k + 1;
+                            dataGridView1[1, k].Value = objName;
+                            k++;*/
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            }
+            else
+            {
+                comboBox2.Items.Clear();
+                string Query = "SELECT * FROM `namecargo`";
+                DB db = new DB();
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
+                {
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
+                    {
+                        string objName = myReader.GetString("group");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
+                        {
+                            if (names[i] != null)
+                            {
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            comboBox2.Items.Add(names[j]);
+                            j++;
+                            /*dataGridView1.Rows.Add();
+                            dataGridView1[0, k].Value = k + 1;
+                            dataGridView1[1, k].Value = objName;
+                            k++;*/
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            if (comboBox1.Text.Equals("Груз"))
+            {
+                string Query = "SELECT * FROM `namecargo` WHERE `group` = '" + comboBox2.Text + "';";
+                DB db = new DB();
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
+                {
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
+                    {
+                        string objName = myReader.GetString("name");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
+                        {
+                            if (names[i] != null)
+                            {
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            if (!names[j].Equals("пусто"))
+                            {
+                                //comboBox2.Items.Add(names[j]);
+                                dataGridView1.Rows.Add();
+                                dataGridView1[0, k].Value = k + 1;
+                                dataGridView1[1, k].Value = objName;
+                                k++;
+                            }
+                            j++;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            }
+            else
+            {
+                string Query = "SELECT * FROM `product` WHERE `group` = '" + comboBox2.Text + "';";
+                DB db = new DB();
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand cmdDataBase = new MySqlCommand(Query, db.getConnection());
+                MySqlDataReader myReader;
+                string[] names = new string[100];
+                int k = 0;
+                try
+                {
+                    db.openConnection();
+                    myReader = cmdDataBase.ExecuteReader();
+
+                    int j = 0;
+                    while (myReader.Read())
+                    {
+                        string objName = myReader.GetString("name");
+                        bool f = true;
+                        for (int i = 0; i < names.Length; i++)
+                        {
+                            if (names[i] != null)
+                            {
+                                if (names[i].Equals(objName))
+                                {
+                                    f = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (f == true)
+                        {
+                            names[j] = objName;
+                            if (!names[j].Equals("пусто"))
+                            {
+                                //comboBox2.Items.Add(names[j]);
+                                dataGridView1.Rows.Add();
+                                dataGridView1[0, k].Value = k + 1;
+                                dataGridView1[1, k].Value = objName;
+                                k++;
+                            }
+                            j++;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                db.closeConnection();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            }
         }
     }
 }

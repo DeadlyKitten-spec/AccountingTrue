@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +46,28 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -66,11 +103,11 @@
     <Compile Include="Cars.Designer.cs">
       <DependentUpon>Cars.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chose.cs">
+    <Compile Include="CarsWithTrailer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Chose.Designer.cs">
-      <DependentUpon>Chose.cs</DependentUpon>
+    <Compile Include="CarsWithTrailer.Designer.cs">
+      <DependentUpon>CarsWithTrailer.cs</DependentUpon>
     </Compile>
     <Compile Include="Contractor.cs">
       <SubType>Form</SubType>
@@ -84,10 +121,28 @@
     <Compile Include="CounterParty.Designer.cs">
       <DependentUpon>CounterParty.cs</DependentUpon>
     </Compile>
+    <Compile Include="CRForAnC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRForAnC.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CRForBuyer1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRForBuyer1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CRForDoc.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRForDoc.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CRForZP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRForZP.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CRViewer.cs">
@@ -96,15 +151,60 @@
     <Compile Include="CRViewer.Designer.cs">
       <DependentUpon>CRViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="CRViewerAnC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRViewerAnC.Designer.cs">
+      <DependentUpon>CRViewerAnC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRViewerDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRViewerDoc.Designer.cs">
+      <DependentUpon>CRViewerDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRViewerZP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRViewerZP.Designer.cs">
+      <DependentUpon>CRViewerZP.cs</DependentUpon>
+    </Compile>
     <Compile Include="DB.cs" />
     <Compile Include="DGVPrinter.cs" />
+    <Compile Include="documents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="documents.Designer.cs">
+      <DependentUpon>documents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Drivers.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Drivers.Designer.cs">
       <DependentUpon>Drivers.cs</DependentUpon>
     </Compile>
+    <Compile Include="ForBuyer.cs" />
+    <Compile Include="ForNom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForNom.Designer.cs">
+      <DependentUpon>ForNom.cs</DependentUpon>
+    </Compile>
     <Compile Include="ForPrice.cs" />
+    <Compile Include="ForProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForProduct.Designer.cs">
+      <DependentUpon>ForProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ForStatCP.cs" />
+    <Compile Include="ForTable.cs" />
+    <Compile Include="ForWorkers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForWorkers.Designer.cs">
+      <DependentUpon>ForWorkers.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,11 +224,23 @@
       <DependentUpon>CargoRequest.cs</DependentUpon>
     </Compile>
     <Compile Include="CounterObject.cs" />
+    <Compile Include="NomGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NomGroup.Designer.cs">
+      <DependentUpon>NomGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="ObjectCounterparty.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ObjectCounterparty.Designer.cs">
       <DependentUpon>ObjectCounterparty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PersonalStatBuy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PersonalStatBuy.Designer.cs">
+      <DependentUpon>PersonalStatBuy.cs</DependentUpon>
     </Compile>
     <Compile Include="Price.cs">
       <SubType>Form</SubType>
@@ -138,6 +250,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Proxy.Designer.cs">
+      <DependentUpon>Proxy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProxyForDel.cs" />
+    <Compile Include="PSBUY.cs" />
     <Compile Include="Report.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +271,12 @@
     <Compile Include="StatementBuyer.Designer.cs">
       <DependentUpon>StatementBuyer.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatementCounterparty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatementCounterparty.Designer.cs">
+      <DependentUpon>StatementCounterparty.cs</DependentUpon>
+    </Compile>
     <Compile Include="StatementSalary.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,7 +289,31 @@
     <Compile Include="Tester.Designer.cs">
       <DependentUpon>Tester.cs</DependentUpon>
     </Compile>
+    <Compile Include="Trailer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trailer.Designer.cs">
+      <DependentUpon>Trailer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vault.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vault.Designer.cs">
+      <DependentUpon>Vault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VaultStatement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VaultStatement.Designer.cs">
+      <DependentUpon>VaultStatement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Work.cs" />
+    <Compile Include="Worker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Worker.Designer.cs">
+      <DependentUpon>Worker.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkSpace.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,8 +329,8 @@
     <EmbeddedResource Include="Cars.resx">
       <DependentUpon>Cars.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chose.resx">
-      <DependentUpon>Chose.cs</DependentUpon>
+    <EmbeddedResource Include="CarsWithTrailer.resx">
+      <DependentUpon>CarsWithTrailer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Contractor.resx">
       <DependentUpon>Contractor.cs</DependentUpon>
@@ -188,15 +338,48 @@
     <EmbeddedResource Include="CounterParty.resx">
       <DependentUpon>CounterParty.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CRForAnC.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRForAnC.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="CRForBuyer1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRForBuyer1.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="CRForDoc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRForDoc.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRForZP.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRForZP.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="CRViewer.resx">
       <DependentUpon>CRViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CRViewerAnC.resx">
+      <DependentUpon>CRViewerAnC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRViewerDoc.resx">
+      <DependentUpon>CRViewerDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRViewerZP.resx">
+      <DependentUpon>CRViewerZP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="documents.resx">
+      <DependentUpon>documents.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Drivers.resx">
       <DependentUpon>Drivers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForNom.resx">
+      <DependentUpon>ForNom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForProduct.resx">
+      <DependentUpon>ForProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForWorkers.resx">
+      <DependentUpon>ForWorkers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -207,8 +390,14 @@
     <EmbeddedResource Include="CargoRequest.resx">
       <DependentUpon>CargoRequest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NomGroup.resx">
+      <DependentUpon>NomGroup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ObjectCounterparty.resx">
       <DependentUpon>ObjectCounterparty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PersonalStatBuy.resx">
+      <DependentUpon>PersonalStatBuy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Price.resx">
       <DependentUpon>Price.cs</DependentUpon>
@@ -223,17 +412,35 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Proxy.resx">
+      <DependentUpon>Proxy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StatementBuyer.resx">
       <DependentUpon>StatementBuyer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="StatementCounterparty.resx">
+      <DependentUpon>StatementCounterparty.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StatementSalary.resx">
       <DependentUpon>StatementSalary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tester.resx">
       <DependentUpon>Tester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trailer.resx">
+      <DependentUpon>Trailer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vault.resx">
+      <DependentUpon>Vault.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VaultStatement.resx">
+      <DependentUpon>VaultStatement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Worker.resx">
+      <DependentUpon>Worker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkSpace.resx">
       <DependentUpon>WorkSpace.cs</DependentUpon>
@@ -259,20 +466,36 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\accept.png" />
     <Content Include="Images\back.png" />
     <Content Include="Images\clearTrash.png" />
     <Content Include="Images\close.png" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\edit.png" />
+    <Content Include="Images\product.png" />
+    <Content Include="Images\truck.png" />
     <Content Include="Images\leftclear.png" />
     <Content Include="Images\plus.png" />
     <Content Include="Images\lock.png" />
     <Content Include="Images\plus2.png" />
+    <Content Include="Images\search.png" />
     <Content Include="Images\user.png" />
     <None Include="Resources\plus.png" />
     <None Include="Resources\iconfinder_173_Arrow_Loop_Loop_Arrow_Back_4541847.png" />
     <None Include="Resources\iconfinder_circle_close_cancel_exit_quit_delete_48310371.png" />
     <None Include="Resources\iconfinder_circle_close_cancel_exit_quit_delete_4831037.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -219,6 +219,13 @@ namespace applications
 
             db.closeConnection();
 
+            MySqlCommand command2 = new MySqlCommand("UPDATE `request` SET `drivers` = '" + textBox1.Text + "' WHERE `drivers` = '" + val + "'", db.getConnection());
+            db.openConnection();
+
+            command2.ExecuteNonQuery();
+
+            db.closeConnection();
+
             textBox1.Text = "";
             dataGridView1.Rows.Clear();
             command = new MySqlCommand("SELECT * FROM `drivers` WHERE `contractor` = '" + comboBox1.Text + "' ORDER BY `name` ASC", db.getConnection());

@@ -8,7 +8,7 @@ namespace applications
 {
     class Work
     {
-
+        public string deal;
         public string buyer;
         public string sender;
         public string objectBuyer;
@@ -16,7 +16,8 @@ namespace applications
         public int inWork;
         public int point;
         public int done;
-
-
+        public int hour;
+        public int minute;
+        public string traffic;
     }
 }

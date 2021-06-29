@@ -11,8 +11,8 @@ namespace applications
         public string car;
         public string objectt;
         public int countTrip;
-        public int price;
-        public int sum;
+        public double price;
+        public double sum;
 
     }
 }
